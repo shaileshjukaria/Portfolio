@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import {
-  Menu, X, Github, Linkedin, Mail, ExternalLink, ChevronDown, Download, MapPin,
-  Code2, Briefcase, Rocket, ArrowUpRight, GraduationCap, Phone
+  Menu, X, Github, Linkedin, Mail, ExternalLink, ChevronDown, MapPin,
+  Briefcase, ArrowUpRight, GraduationCap, Phone
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -69,19 +69,19 @@ const projects = [
     title: 'E‑commerce Website',
     desc: 'Full‑stack e‑commerce platform with product listing, cart, secure checkout, auth, order management, and responsive UI.',
     tags: ['React/Angular', 'Node.js', 'Express', 'MySQL/MongoDB', 'Auth'],
-    href: '#',
+    href: 'https://github.com/shaileshjukaria?tab=repositories',
   },
   {
     title: 'Personal Space — Cloud Storage',
     desc: 'Cloud‑based storage app to upload, download, and manage files securely with role‑based access.',
     tags: ['React', 'Node.js', 'Express', 'MongoDB/MySQL'],
-    href: '#',
+    href: 'https://github.com/shaileshjukaria?tab=repositories',
   },
   {
     title: 'Anime TV Tracker',
     desc: 'Browse, search, and maintain a personalized anime watchlist using public APIs; includes auth and CRUD features.',
     tags: ['React', 'REST APIs', 'Node.js', 'MongoDB', 'Auth'],
-    href: '#',
+    href: 'https://github.com/shaileshjukaria?tab=repositories',
   },
 ]
 
@@ -113,13 +113,11 @@ export default function App() {
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white selection:bg-blue-600/40'>
-      {/* Background glow */}
       <div className='pointer-events-none fixed inset-0 -z-10'>
         <div className='absolute -top-16 -left-16 h-72 w-72 rounded-full bg-blue-600/20 blur-3xl' />
         <div className='absolute bottom-0 right-0 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl' />
       </div>
 
-      {/* Nav */}
       <nav className='fixed w-full z-50 border-b border-slate-800/60 bg-slate-900/70 backdrop-blur-xl'>
         <div className='mx-auto max-w-6xl px-4 sm:px-6 lg:px-8'>
           <div className='flex h-16 items-center justify-between'>
@@ -146,21 +144,18 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Hero */}
       <section id='home' className='px-4 pt-28 pb-16 text-center'>
         <div className='mx-auto max-w-5xl'>
           <motion.h1 initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className='mb-4 text-5xl font-extrabold leading-tight md:text-7xl bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent'>Hi, I'm Shailesh</motion.h1>
           <motion.p initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }} className='mx-auto mb-3 max-w-2xl text-xl text-slate-300'>Full‑Stack Developer • MERN • Software Engineering</motion.p>
           <motion.p initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }} className='mx-auto mb-8 max-w-2xl text-slate-400'>I build scalable, secure web apps with clean code and delightful UX.</motion.p>
 
-          {/* Profile Image */}
           <div className='flex justify-center mb-8'>
             <div className='relative h-56 w-56 overflow-hidden rounded-full shadow-lg ring-2 ring-cyan-400/30'>
               <img src='/IMG_20251020_103436.png' alt='Shailesh Jukaria' className='h-full w-full object-cover' />
             </div>
           </div>
 
-          {/* Contact quick info */}
           <div className='mx-auto flex flex-wrap items-center justify-center gap-4 text-slate-300'>
             <span className='inline-flex items-center gap-2'><MapPin size={16} /> {contact.location}</span>
             <a href={`mailto:${contact.email}`} className='inline-flex items-center gap-2 hover:text-cyan-300'><Mail size={16} /> {contact.email}</a>
@@ -177,7 +172,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* About */}
       <section id='about' className='px-4 py-16 bg-slate-900/50'>
         <div className='mx-auto max-w-6xl grid items-center gap-10 md:grid-cols-2'>
           <div className='order-2 md:order-1'>
@@ -206,7 +200,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* Experience */}
       <section id='experience' className='px-4 py-16'>
         <div className='mx-auto max-w-6xl'>
           <h2 className='mb-8 text-4xl font-bold text-center'>Experience</h2>
@@ -217,7 +210,9 @@ export default function App() {
                   <h3 className='text-xl font-semibold text-slate-100 inline-flex items-center gap-2'><Briefcase size={18} /> {e.role}</h3>
                   <span className='text-sm text-slate-400'>{e.period}</span>
                 </div>
-                <p className='mb-3 text-cyan-300 font-medium'>{e.org}</p>
+                <p className='mb-3 font-medium'>
+                  <a className='text-cyan-300 hover:underline' href='https://launchedglobal.in/' target='_blank' rel='noreferrer'>{e.org}</a>
+                </p>
                 <ul className='list-disc pl-5 space-y-2 text-slate-300'>
                   {e.bullets.map((b, i) => <li key={i}>{b}</li>)}
                 </ul>
@@ -227,14 +222,15 @@ export default function App() {
         </div>
       </section>
 
-      {/* Education */}
       <section id='education' className='px-4 py-16 bg-slate-900/50'>
         <div className='mx-auto max-w-5xl'>
           <h2 className='mb-8 text-4xl font-bold text-center'>Education</h2>
           {education.map((ed) => (
             <div key={ed.school} className='rounded-xl border border-slate-800 bg-slate-800/50 p-6'>
               <div className='flex flex-col gap-1 md:flex-row md:items-center md:justify-between'>
-                <h3 className='text-xl font-semibold text-slate-100 inline-flex items-center gap-2'><GraduationCap size={18} /> {ed.school}</h3>
+                <h3 className='text-xl font-semibold text-slate-100 inline-flex items-center gap-2'>
+                  <GraduationCap size={18} /> <a href='https://www.gehu.ac.in' target='_blank' rel='noreferrer' className='hover:underline'>{ed.school}</a>
+                </h3>
                 <span className='text-sm text-slate-400'>{ed.period}</span>
               </div>
               <p className='mt-2 text-cyan-300 font-medium'>{ed.degree}</p>
@@ -243,7 +239,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* Skills */}
       <section id='skills' className='px-4 py-16'>
         <div className='mx-auto max-w-6xl'>
           <h2 className='mb-10 text-center text-4xl font-bold'>Skills</h2>
@@ -262,13 +257,12 @@ export default function App() {
         </div>
       </section>
 
-      {/* Projects */}
       <section id='projects' className='px-4 py-16 bg-slate-900/50'>
         <div className='mx-auto max-w-6xl'>
           <h2 className='mb-10 text-center text-4xl font-bold'>Projects</h2>
           <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
             {projects.map((p) => (
-              <a key={p.title} href={p.href} className='group relative block rounded-xl border border-slate-800 bg-slate-800/40 p-6 shadow-sm ring-1 ring-white/5 transition hover:-translate-y-0.5 hover:border-cyan-500/40'>
+              <a key={p.title} href={p.href} target='_blank' rel='noreferrer' className='group relative block rounded-xl border border-slate-800 bg-slate-800/40 p-6 shadow-sm ring-1 ring-white/5 transition hover:-translate-y-0.5 hover:border-cyan-500/40'>
                 <div className='mb-3 flex items-start justify-between gap-4'>
                   <h3 className='text-xl font-semibold text-slate-100 group-hover:text-cyan-300'>{p.title}</h3>
                   <ExternalLink className='text-slate-500 group-hover:text-cyan-300' size={18} />
@@ -290,7 +284,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* Social */}
       <section id='social' className='px-4 py-16'>
         <div className='mx-auto max-w-3xl text-center'>
           <h2 className='mb-6 text-4xl font-bold'>Connect With Me</h2>
@@ -306,7 +299,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* Contact */}
       <section id='contact' className='px-4 py-16 bg-slate-900/50'>
         <div className='mx-auto max-w-3xl text-center'>
           <h2 className='mb-4 text-4xl font-bold'>Get In Touch</h2>
@@ -322,9 +314,6 @@ export default function App() {
       <footer className='border-t border-slate-800 px-4 py-8 text-center text-slate-400'>
         <div className='mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row'>
           <p>© {year} Shailesh Jukaria. All rights reserved.</p>
-          <div className='flex items-center gap-4 text-slate-400'>
-            <span className='inline-flex items-center gap-1'><Rocket size={16} /> Built with React & Tailwind</span>
-          </div>
         </div>
       </footer>
     </div>
