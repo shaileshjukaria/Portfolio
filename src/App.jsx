@@ -28,7 +28,7 @@ const experience = [
   {
     role: 'Full Stack Developer Intern',
     org: 'LaunchED Global',
-    period: 'Aug 2025 – Present',
+    period: 'Aug 2025 – Oct 2025',
     bullets: [
       'Designed and developed distributed full‑stack apps ensuring performance, reliability, and scalability using React, Node.js, and Express.',
       'Built and optimized large‑scale databases (MySQL/MongoDB) with a focus on query performance, indexing, and data consistency.',
