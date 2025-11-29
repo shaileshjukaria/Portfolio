@@ -510,7 +510,7 @@ export default function Portfolio() {
       {/* Footer */}
       <footer className={`py-8 px-6 border-t ${t.border}`}>
         <div className="max-w-6xl mx-auto text-center">
-          <p className={t.textSecondary}>© 2024 Shailesh Jukaria. All rights reserved.</p>
+          <p className={t.textSecondary}>© 2025 Shailesh Jukaria. All rights reserved.</p>
         </div>
       </footer>
     </div>
