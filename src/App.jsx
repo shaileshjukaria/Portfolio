@@ -9,6 +9,7 @@ export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalImage, setModalImage] = useState(null);
   const [showResume, setShowResume] = useState(false);
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,6 +45,11 @@ export default function Portfolio() {
     setIsMenuOpen(false);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setActiveSection('home');
+  };
+
   const theme = {
     dark: {
       bg: 'bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950',
@@ -75,11 +81,14 @@ export default function Portfolio() {
       <nav className={`fixed w-full z-50 ${t.cardBg} backdrop-blur-xl border-b ${t.border} transition-colors duration-500`}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-2xl font-bold">
+            <button 
+              onClick={scrollToTop}
+              className="text-2xl font-bold hover:scale-110 transition-transform cursor-pointer"
+            >
               <span className={t.accent}>{'<'}</span>
               <span className="bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">SJ</span>
               <span className={t.accent}>{'/>'}</span>
-            </div>
+            </button>
 
             <div className="hidden md:flex items-center gap-8">
               {['Home', 'About', 'Experience', 'Skills', 'Projects', 'Contact'].map((item) => (
@@ -93,6 +102,7 @@ export default function Portfolio() {
                   {item}
                 </button>
               ))}
+              
               <button
                 onClick={() => setIsDark(!isDark)}
                 className={`p-2 rounded-lg ${t.cardBg} ${t.border} border hover:scale-110 transition-transform`}
