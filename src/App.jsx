@@ -7,6 +7,7 @@ export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [selectedProject, setSelectedProject] = useState(null);
+  const [modalImage, setModalImage] = useState(null);
   const [showResume, setShowResume] = useState(false);
 
   useEffect(() => {
@@ -26,6 +27,17 @@ export default function Portfolio() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (selectedProject || showResume) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedProject, showResume]);
 
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -336,28 +348,107 @@ export default function Portfolio() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: 'E-commerce Platform',
-                desc: 'Full-stack e-commerce with cart, checkout, auth, and order management',
-                tech: ['React', 'Node.js', 'MongoDB', 'Express'],
-                image: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop',
-                githubLink: 'https://github.com/shaileshjukaria/ecommerce-platform'
+                title: 'Build-Linux',
+                desc: 'Tooling/automation project to build a Linux system (kernel + packages) from source.',
+                longDesc: `A tooling and automation project aimed at simplifying the process of building a Linux system (kernel + packages) from source. The scripts automate downloading sources, compiling the kernel and packages, applying configuration templates/patches, and assembling a usable filesystem or installable image. This project is useful for custom distributions, reproducible builds, or learning how Linux components are assembled from source.`,
+                features: [
+                  'Automated sequence: download, compile kernel & packages, configure modules',
+                  'Configurable build options: kernel options and package selections',
+                  'Build logging and error handling for easier debugging',
+                  'Support for creating a filesystem or installable image after build',
+                  'Makefile-driven orchestration and modular build scripts'
+                ],
+                role: 'Tooling / Build Engineer',
+                challenges: [
+                  'Coordinating large multi-step builds and dependencies',
+                  'Handling diverse toolchains and platform-specific build quirks',
+                  'Providing robust error handling and resumable steps for long builds',
+                  'Documenting configuration and reproducible build steps'
+                ],
+                tech: ['Bash / Shell scripting', 'Makefiles', 'GNU toolchain (gcc, make)', 'kernel build tools', 'tar/zip', 'optional package managers'],
+                image: '/build-linux.jpeg',
+                screenshots: [
+                  '/build-linux.jpeg'
+                ],
+                githubLink: 'https://github.com/shaileshjukaria/Build-Linux.git',
+                liveLink: '#'
               },
               {
-                title: 'Cloud Storage App',
-                desc: 'Secure file storage with role-based access control',
-                tech: ['React', 'Node.js', 'MongoDB', 'AWS S3'],
-                image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&h=600&fit=crop',
-                githubLink: 'https://github.com/shaileshjukaria/cloud-storage'
+                title: 'PersonalSpace',
+                desc: 'Open-source self-hosted cloud storage web app for uploading, managing and sharing files and folders.',
+                longDesc: `PersonalSpace is an open-source cloud file storage web app (similar to Google Drive). It allows users to upload, store, manage, download, and share files and folders securely via a browser — effectively letting you host your own “cloud storage” service. Users can self-host the application on their server or any trusted platform, then access storage through a web interface. The app supports both file and folder uploads/downloads (folders are zipped automatically on download), media previews (image/video viewer & gallery), thumbnails for fast browsing, and file/folder sharing. The project focuses on data ownership and privacy — users retain control over their files instead of relying on third-party providers.`,
+                features: [
+                  'File upload / download (single files)',
+                  'Folder upload / download (folders ZIP automatically)',
+                  'Support for multiple storage backends (filesystem or S3-compatible object storage)',
+                  'Media support: image/video preview, gallery and thumbnails',
+                  'Thumbnails generation for faster browsing',
+                  'File and folder sharing (link-based / permissioned)',
+                  'Mobile-friendly UI and PWA support',
+                  'Optional AES-256 encryption for stored files',
+                  'JWT-based auth (access + refresh tokens)'
+                ],
+                role: 'Full-Stack Developer & DevOps',
+                challenges: [
+                  'Designing metadata model to represent files, folders and versions',
+                  'Handling chunked uploads and resumable transfers for large files',
+                  'Supporting multiple storage backends while keeping a single API surface',
+                  'Generating thumbnails and efficient media previews',
+                  'Implementing secure sharing workflows and optional encryption'
+                ],
+                tech: ['React', 'TypeScript', 'Vite', 'Node.js', 'Express', 'MongoDB', 'Docker', 'S3-compatible storage', 'JWT', 'AES-256', 'PWA'],
+                image: '/personalspace.jpeg',
+                screenshots: [
+                  '/personalspace.jpeg'
+                ],
+                githubLink: 'https://github.com/shaileshjukaria/personalspace',
+                liveLink: '#'
               },
               {
-                title: 'Anime Tracker',
-                desc: 'Browse and track anime with public APIs integration',
-                tech: ['React', 'REST APIs', 'Node.js', 'MongoDB'],
-                image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&h=600&fit=crop',
-                githubLink: 'https://github.com/shaileshjukaria/anime-tracker'
+                title: 'Anime-TV-Series-Tracker',
+                desc: 'A web application to track watched anime and TV series — add shows, mark episodes, and manage watch status.',
+                longDesc: `A web application to help users track their watched anime and TV series — allowing them to add new shows, mark episodes as watched, maintain history/status (watching / completed / plan-to-watch), and optionally add ratings or notes. The app acts as a personal tracker/media library to organize shows, view progress, and filter or sort by status. The project demonstrates full-stack development including frontend state management, backend CRUD APIs, and persistent storage for user data.`,
+                features: [
+                  'User registration & login (multi-user support)',
+                  'Add / remove series with metadata (title, episodes, description)',
+                  'Mark episodes watched and update progress automatically',
+                  'Series status: watching / completed / on-hold / plan-to-watch',
+                  'View history with sorting and filtering by status',
+                  'Optional ratings and per-show notes/comments',
+                  'Responsive UI for mobile and desktop'
+                ],
+                role: 'Full-Stack Developer',
+                challenges: [
+                  'Designing a flexible data model to store shows, episodes and user progress',
+                  'Handling asynchronous database calls and keeping UI state in sync',
+                  'Dealing with inconsistent or partial data from public APIs',
+                  'Implementing efficient filtering/sorting for large watchlists'
+                ],
+                tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS', 'REST APIs'],
+                image: '/anime-tracker-poster.jpeg',
+                screenshots: [
+                  '/anime-tracker-poster.jpeg'
+                ],
+                githubLink: 'https://github.com/shaileshjukaria/Anime-TV-Series-Tracker',
+                liveLink: '#'
+              },
+              {
+                title: 'Imaginova - AI Image Generator',
+                desc: 'Text-to-image generation app with MERN stack. Input text prompts and receive AI-generated images.',
+                longDesc: 'Imaginova is an ongoing project that combines full-stack web development with AI integration. Users input text prompts and receive AI-generated images through a seamless interface. I built this to understand how to connect frontend, backend, database, and external AI services end-to-end. The app handles asynchronous API calls, manages user authentication, stores image history with metadata, and provides a responsive experience across devices. Each request goes through the full stack�from the React UI to the Node.js backend, then to MongoDB for storage, and finally to the AI generation service.',
+                features: ['User authentication and session management', 'Text prompt input UI', 'AI image generation via external API', 'Image gallery and history with metadata', 'Download generated images', 'Responsive design across devices', 'Loading states and error handling'],
+                role: 'Full-Stack Developer',
+                challenges: ['Integrating external AI service APIs', 'Managing asynchronous requests and latency', 'Designing intuitive UX for image generation workflow', 'Storing and retrieving user-generated image metadata'],
+                tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'AI API Integration', 'Authentication (Token/Session)'],
+                image: '/imaginova.jpeg',
+                screenshots: [
+                  '/imaginova.jpeg'
+                ],
+                githubLink: 'https://github.com/shaileshjukaria/Imaginova',
+                liveLink: '#'
               }
             ].map((project, idx) => (
-              <div key={idx} className={`${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl overflow-hidden shadow-xl hover:scale-105 transition-all cursor-pointer`} onClick={() => setSelectedProject(project)}>
+              <div key={idx} className={`${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl overflow-hidden shadow-xl hover:scale-105 transition-all cursor-pointer`} onClick={() => { setSelectedProject(project); setModalImage(project.image); }}>
                 <div className="aspect-video overflow-hidden">
                   <img src={project.image} alt={project.title} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
                 </div>
@@ -372,7 +463,7 @@ export default function Portfolio() {
                     ))}
                   </div>
                   <button
-                    onClick={(e) => { e.stopPropagation(); setSelectedProject(project); }}
+                    onClick={(e) => { e.stopPropagation(); setSelectedProject(project); setModalImage(project.image); }}
                     className={`${t.accent} hover:underline flex items-center gap-1 text-sm`}>
                     View Details <ExternalLink size={14} />
                   </button>
@@ -436,37 +527,149 @@ export default function Portfolio() {
 
       {/* Project Modal */}
       {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-6 py-12 backdrop-blur-sm bg-black/40" onClick={() => setSelectedProject(null)}>
-          <div className={`${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl p-8 max-w-2xl w-full shadow-2xl`} onClick={(e) => e.stopPropagation()}>
-            <div className="flex justify-between items-start mb-6">
-              <h2 className="text-3xl font-bold">{selectedProject.title}</h2>
-              <button onClick={() => setSelectedProject(null)} className={`${t.textSecondary} hover:${t.accent.replace('text-', 'text-')} transition-colors`}>
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center px-6 py-12 backdrop-blur-sm bg-black/60 animate-fadeIn" 
+          onClick={() => { setSelectedProject(null); setModalImage(null); }}
+        >
+          <div 
+            className={`${t.cardBg} backdrop-blur-xl border ${t.border} rounded-2xl p-8 max-w-5xl w-full shadow-2xl overflow-y-auto max-h-[90vh] animate-slideUp`} 
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex justify-between items-start mb-6 sticky top-0 bg-inherit z-10 pb-4 border-b border-purple-500/20">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">
+                  {selectedProject.title}
+                </h2>
+                <p className={`${t.textSecondary} text-sm`}>{selectedProject.role}</p>
+              </div>
+              <button 
+                onClick={() => { setSelectedProject(null); setModalImage(null); }} 
+                className={`${t.textSecondary} hover:${t.accent.replace('text-', 'text-')} transition-all hover:rotate-90 duration-300`}
+              >
                 <X size={28} />
               </button>
             </div>
-            
-            <div className="aspect-video overflow-hidden rounded-xl mb-6">
-              <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" />
+
+            {/* Main Image */}
+            <div className="aspect-video overflow-hidden rounded-xl mb-6 border border-purple-500/20 shadow-lg group">
+              <img 
+                src={modalImage || selectedProject.image} 
+                alt={selectedProject.title} 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+              />
             </div>
-            
-            <p className={`${t.textSecondary} text-lg mb-6 leading-relaxed`}>{selectedProject.desc}</p>
-            
-            <div className="mb-8">
-              <h3 className="font-semibold mb-3">Technologies Used:</h3>
-              <div className="flex flex-wrap gap-2">
-                {selectedProject.tech.map((tech) => (
-                  <span key={tech} className={`px-3 py-1 bg-orange-500/10 ${t.accent} rounded-full text-sm border border-orange-500/20`}>
+
+            {/* Description */}
+            <div className={`${t.cardBg} border ${t.border} rounded-xl p-6 mb-6`}>
+              <h3 className={`text-xl font-semibold mb-3 ${t.accent}`}>About This Project</h3>
+              <p className={`${t.textSecondary} text-base leading-relaxed`}>
+                {selectedProject.longDesc || selectedProject.desc}
+              </p>
+            </div>
+
+            {/* Key Information Grid */}
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              {/* Features */}
+              <div className={`${t.cardBg} border ${t.border} rounded-xl p-6`}>
+                <h3 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${t.accent}`}>
+                  <Code2 size={20} />
+                  Key Features
+                </h3>
+                <ul className="space-y-2">
+                  {(selectedProject.features || []).map((f, idx) => (
+                    <li key={f} className={`${t.textSecondary} flex items-start gap-2 animate-fadeIn`} style={{animationDelay: `${idx * 0.1}s`}}>
+                      <span className={t.accent}>•</span>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Challenges */}
+              <div className={`${t.cardBg} border ${t.border} rounded-xl p-6`}>
+                <h3 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${t.accent}`}>
+                  <Cpu size={20} />
+                  Technical Challenges
+                </h3>
+                <ul className="space-y-2">
+                  {(selectedProject.challenges || []).map((c, idx) => (
+                    <li key={c} className={`${t.textSecondary} flex items-start gap-2 animate-fadeIn`} style={{animationDelay: `${idx * 0.1}s`}}>
+                      <span className={t.accent}>•</span>
+                      <span>{c}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Technologies */}
+            <div className={`${t.cardBg} border ${t.border} rounded-xl p-6 mb-6`}>
+              <h3 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${t.accent}`}>
+                <Terminal size={20} />
+                Technology Stack
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {selectedProject.tech.map((tech, idx) => (
+                  <span 
+                    key={tech} 
+                    className={`px-4 py-2 bg-gradient-to-r from-purple-500/10 to-orange-500/10 ${t.accent} rounded-lg text-sm border border-purple-500/20 hover:scale-105 transition-transform animate-fadeIn`}
+                    style={{animationDelay: `${idx * 0.05}s`}}
+                  >
                     {tech}
                   </span>
                 ))}
               </div>
             </div>
-            
-            <a href={selectedProject.githubLink} target="_blank" rel="noopener noreferrer"
-              className={`inline-flex items-center gap-2 px-6 py-3 ${t.buttonBg} ${t.buttonHover} rounded-lg font-semibold transition-all hover:scale-105`}>
-              <Github size={20} />
-              View on GitHub
-            </a>
+
+            {/* Screenshots */}
+            {selectedProject.screenshots && selectedProject.screenshots.length > 1 && (
+              <div className={`${t.cardBg} border ${t.border} rounded-xl p-6 mb-6`}>
+                <h3 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${t.accent}`}>
+                  <Globe size={20} />
+                  Project Screenshots
+                </h3>
+                <div className="flex gap-3 overflow-x-auto pb-2">
+                  {selectedProject.screenshots.map((shot, i) => (
+                    <button 
+                      key={i} 
+                      onClick={() => setModalImage(shot)} 
+                      className={`w-40 h-24 flex-shrink-0 rounded-lg overflow-hidden border-2 ${modalImage === shot ? 'border-orange-500' : 'border-purple-500/20'} hover:border-orange-500 transition-all hover:scale-105`}
+                    >
+                      <img 
+                        src={shot} 
+                        alt={`${selectedProject.title} screenshot ${i + 1}`} 
+                        className="w-full h-full object-cover" 
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-4">
+              <a 
+                href={selectedProject.githubLink} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-2 px-6 py-3 ${t.buttonBg} ${t.buttonHover} text-white rounded-lg font-semibold transition-all hover:scale-105 shadow-lg`}
+              >
+                <Github size={20} />
+                View Source Code
+              </a>
+              {selectedProject.liveLink && selectedProject.liveLink !== '#' && (
+                <a 
+                  href={selectedProject.liveLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2 px-6 py-3 border-2 border-purple-500 ${t.textSecondary} rounded-lg font-semibold transition-all hover:bg-purple-500/10 hover:scale-105`}
+                >
+                  <ExternalLink size={20} />
+                  Visit Live Demo
+                </a>
+              )}
+            </div>
           </div>
         </div>
       )}
@@ -516,3 +719,14 @@ export default function Portfolio() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
