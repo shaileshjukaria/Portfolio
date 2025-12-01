@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Github, Linkedin, Mail, MapPin, Phone, ExternalLink, Send, Moon, Sun, Code2, Database, Server, Cpu, Globe, Terminal } from 'lucide-react';
+import {
+  SiReact, SiAngular, SiJavascript, SiTypescript, SiTailwindcss,
+  SiNodedotjs, SiExpress, SiPython, SiMicrogenetics, SiFastapi,
+  SiMongodb, SiMysql, SiPostgresql, SiRedis,
+  SiDocker, SiGit, SiJenkins, SiPostman, SiKubernetes
+} from "react-icons/si";
 
 // Main App Component
 export default function Portfolio() {
@@ -74,6 +80,24 @@ export default function Portfolio() {
   };
 
   const t = isDark ? theme.dark : theme.light;
+
+  // ========= REUSABLE COMPONENT FOR SKILLS ========= //
+const SkillCard = ({ icon, name, level }) => (
+  <div className={`p-6 rounded-2xl ${t.cardBg} ${t.border} border shadow-xl
+      hover:scale-[1.05] hover:shadow-purple-500/20 transition-all duration-300
+      flex items-center gap-4`}>
+      
+    <div className="text-4xl">
+      {icon}
+    </div>
+
+    <div>
+      <h4 className="font-semibold text-lg">{name}</h4>
+      <p className="text-sm opacity-80">{level}</p>
+    </div>
+  </div>
+);
+
 
   return (
     <div className={`${t.bg} ${t.text} min-h-screen transition-colors duration-500`}>
@@ -323,31 +347,61 @@ export default function Portfolio() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
-            Technical <span className={t.accent}>Skills</span>
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: 'Frontend', icon: <Code2 size={32} />, skills: ['React.js', 'Angular', 'JavaScript', 'TypeScript', 'Tailwind CSS'] },
-              { title: 'Backend', icon: <Server size={32} />, skills: ['Node.js', 'Express.js', 'RESTful APIs', 'Microservices', 'Python'] },
-              { title: 'Database', icon: <Database size={32} />, skills: ['MongoDB', 'MySQL', 'PostgreSQL', 'Redis', 'Query Optimization'] },
-              { title: 'DevOps', icon: <Terminal size={32} />, skills: ['Git', 'Docker', 'Jenkins', 'CI/CD', 'Postman'] }
-            ].map((category, idx) => (
-              <div key={idx} className={`${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl p-6 shadow-xl hover:scale-105 transition-all`}>
-                <div className={`${t.accent} mb-4`}>{category.icon}</div>
-                <h3 className="text-xl font-bold mb-4">{category.title}</h3>
-                <div className="space-y-2">
-                  {category.skills.map((skill) => (
-                    <div key={skill} className={`${t.textSecondary} text-sm`}>• {skill}</div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+     <section id="skills" className="py-20 px-6">
+  <div className="max-w-7xl mx-auto">
+
+    <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
+      Technical <span className={t.accent}>Skills</span>
+    </h2>
+
+    {/* ─────────────── FRONTEND ─────────────── */}
+    <h3 className="text-2xl font-bold mb-6 text-center">Frontend</h3>
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+
+      <SkillCard icon={<SiReact size={40} color="#61DBFB"/>} name="React.js" level="Expert"/>
+      <SkillCard icon={<SiAngular size={40} color="#DD0031"/>} name="Angular" level="Intermediate"/>
+      <SkillCard icon={<SiJavascript size={40} color="#F7DF1E"/>} name="JavaScript" level="Expert"/>
+      <SkillCard icon={<SiTypescript size={40} color="#3178C6"/>} name="TypeScript" level="Advanced"/>
+      <SkillCard icon={<SiTailwindcss size={40} color="#06B6D4"/>} name="Tailwind CSS" level="Expert"/>
+
+    </div>
+
+    {/* ─────────────── BACKEND ─────────────── */}
+    <h3 className="text-2xl font-bold mb-6 text-center">Backend</h3>
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+
+      <SkillCard icon={<SiNodedotjs size={40} color="#3C873A"/>} name="Node.js" level="Advanced"/>
+      <SkillCard icon={<SiExpress size={40} color="#888"/>} name="Express.js" level="Advanced"/>
+      <SkillCard icon={<SiPython size={40} color="#FFD43B"/>} name="Python" level="Intermediate"/>
+      <SkillCard icon={<SiFastapi size={40} color="#009688"/>} name="REST APIs" level="Advanced"/>
+      <SkillCard icon={<SiMicrogenetics size={40} color="#4F46E5"/>} name="Microservices" level="Intermediate"/>
+
+    </div>
+
+    {/* ─────────────── DATABASE ─────────────── */}
+    <h3 className="text-2xl font-bold mb-6 text-center">Database</h3>
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+
+      <SkillCard icon={<SiMongodb size={40} color="#4DB33D"/>} name="MongoDB" level="Intermediate"/>
+      <SkillCard icon={<SiMysql size={40} color="#00758F"/>} name="MySQL" level="Advanced"/>
+      <SkillCard icon={<SiPostgresql size={40} color="#336791"/>} name="PostgreSQL" level="Intermediate"/>
+      <SkillCard icon={<SiRedis size={40} color="#D92C20"/>} name="Redis" level="Intermediate"/>
+
+    </div>
+
+    {/* ─────────────── DEVOPS ─────────────── */}
+    <h3 className="text-2xl font-bold mb-6 text-center">DevOps</h3>
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <SkillCard icon={<SiDocker size={40} color="#2496ED"/>} name="Docker" level="Beginner"/>
+      <SkillCard icon={<SiGit size={40} color="#F05133"/>} name="Git" level="Expert"/>
+      <SkillCard icon={<SiJenkins size={40} color="#D33833"/>} name="Jenkins" level="Intermediate"/>
+      <SkillCard icon={<SiPostman size={40} color="#FF6C37"/>} name="Postman" level="Advanced"/>
+      <SkillCard icon={<SiKubernetes size={40} color="#326CE5"/>} name="CI/CD" level="Intermediate"/>
+
+    </div>
+  </div>
+</section>
 
       {/* Projects Section */}
       <section id="projects" className="py-20 px-6">
