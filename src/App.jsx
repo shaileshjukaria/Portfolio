@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Github, Linkedin, Mail, MapPin, Phone, ExternalLink, Send, Moon, Sun, Code2, Database, Server, Cpu, Globe, Terminal } from 'lucide-react';
+import { Menu, X, Github, Linkedin, Mail, MapPin, Phone, ExternalLink, Send, Moon, Sun, Code2, Database, Server, Cpu, Globe, Terminal, Download, Eye, Twitter, Instagram, Facebook } from 'lucide-react';
 import {
   SiReact, SiAngular, SiJavascript, SiTypescript, SiTailwindcss,
   SiNodedotjs, SiExpress, SiPython, SiMicrogenetics, SiFastapi,
@@ -15,7 +15,10 @@ export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalImage, setModalImage] = useState(null);
   const [showResume, setShowResume] = useState(false);
-  
+  const [showResumeDropdown, setShowResumeDropdown] = useState(false);
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formStatus, setFormStatus] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,16 +86,22 @@ export default function Portfolio() {
 
   // ========= REUSABLE COMPONENT FOR SKILLS ========= //
 const SkillCard = ({ icon, name, level }) => (
-  <div className={`p-6 rounded-2xl ${t.cardBg} ${t.border} border shadow-xl
-      hover:scale-[1.05] hover:shadow-purple-500/20 transition-all duration-300
-      flex items-center gap-4`}>
+  <div className={`group relative p-6 rounded-2xl ${t.cardBg} ${t.border} border shadow-xl
+      hover:scale-[1.05] hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300
+      flex items-center gap-4 overflow-hidden`}>
+    
+    {/* Animated border gradient */}
+    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500 via-orange-500 to-purple-500 animate-border-spin" 
+           style={{padding: '2px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+    </div>
       
-    <div className="text-4xl">
+    <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
       {icon}
     </div>
 
     <div>
-      <h4 className="font-semibold text-lg">{name}</h4>
+      <h4 className="font-semibold text-lg group-hover:text-orange-400 transition-colors">{name}</h4>
       <p className="text-sm opacity-80">{level}</p>
     </div>
   </div>
@@ -101,6 +110,19 @@ const SkillCard = ({ icon, name, level }) => (
 
   return (
     <div className={`${t.bg} ${t.text} min-h-screen transition-colors duration-500`}>
+      {/* Add keyframe animations */}
+      <style>{`
+        @keyframes border-spin {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-border-spin {
+          background-size: 200% 200%;
+          animation: border-spin 3s linear infinite;
+        }
+      `}</style>
+
       {/* Navbar */}
       <nav className={`fixed w-full z-50 ${t.cardBg} backdrop-blur-xl border-b ${t.border} transition-colors duration-500`}>
         <div className="max-w-7xl mx-auto px-6 py-4">
@@ -186,29 +208,50 @@ const SkillCard = ({ icon, name, level }) => (
             <div className="flex flex-wrap gap-4 mb-8">
               <button
                 onClick={() => scrollToSection('projects')}
-                className={`px-8 py-3 ${t.buttonBg} ${t.buttonHover} rounded-lg font-semibold transition-all hover:scale-105 shadow-lg`}
+                className={`group relative px-8 py-3 ${t.buttonBg} ${t.buttonHover} rounded-lg font-semibold transition-all hover:scale-105 shadow-lg overflow-hidden`}
               >
-                View Projects
+                <span className="relative z-10">View Projects</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity"/>
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
-                className={`px-8 py-3 border-2 border-purple-500 ${t.textSecondary} rounded-lg font-semibold transition-all hover:bg-purple-500/10`}
+                className={`group relative px-8 py-3 border-2 border-purple-500 ${t.textSecondary} rounded-lg font-semibold transition-all hover:bg-purple-500/10 hover:scale-105 overflow-hidden`}
               >
-                Contact Me
+                <span className="relative z-10">Contact Me</span>
+                <div className="absolute inset-0 border-2 border-transparent bg-gradient-to-r from-purple-500 to-orange-500 opacity-0 group-hover:opacity-20 transition-opacity"/>
               </button>
-              <button
-                onClick={() => setShowResume(true)}
-                className={`px-8 py-3 border-2 ${t.accent} border-orange-500 ${t.accent} rounded-lg font-semibold transition-all hover:bg-orange-500/10`}
-              >
-                View Resume
-              </button>
-              <a
-                href="/Shailesh-FSWD.pdf"
-                download
-                className={`px-8 py-3 ${t.buttonBg} ${t.buttonHover} rounded-lg font-semibold transition-all hover:scale-105 shadow-lg flex items-center gap-2`}
-              >
-                Download Resume
-              </a>
+              
+              {/* Resume Dropdown Button */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowResumeDropdown(!showResumeDropdown)}
+                  className={`group relative px-8 py-3 border-2 ${t.accent} border-orange-500 rounded-lg font-semibold transition-all hover:bg-orange-500/10 hover:scale-105 overflow-hidden`}
+                >
+                  <span className="relative z-10">Resume</span>
+                  <div className="absolute inset-0 border-2 border-transparent bg-gradient-to-r from-orange-500 to-purple-500 opacity-0 group-hover:opacity-20 transition-opacity"/>
+                </button>
+                
+                {showResumeDropdown && (
+                  <div className={`absolute top-full mt-2 ${t.cardBg} ${t.border} border rounded-lg shadow-xl overflow-hidden z-10 min-w-[200px]`}>
+                    <button
+                      onClick={() => { setShowResume(true); setShowResumeDropdown(false); }}
+                      className={`w-full px-6 py-3 ${t.textSecondary} hover:bg-orange-500/10 transition-all flex items-center gap-2 hover:${t.accent.replace('text-', 'text-')}`}
+                    >
+                      <Eye size={18} />
+                      View Resume
+                    </button>
+                    <a
+                      href="/Shailesh-FSWD.pdf"
+                      download
+                      onClick={() => setShowResumeDropdown(false)}
+                      className={`w-full px-6 py-3 ${t.textSecondary} hover:bg-orange-500/10 transition-all flex items-center gap-2 hover:${t.accent.replace('text-', 'text-')}`}
+                    >
+                      <Download size={18} />
+                      Download Resume
+                    </a>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="flex gap-6">
               <a href="https://github.com/shaileshjukaria" target="_blank" rel="noopener noreferrer" 
@@ -228,9 +271,15 @@ const SkillCard = ({ icon, name, level }) => (
 
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-orange-600 rounded-3xl blur-3xl opacity-20 animate-pulse" />
-            <div className={`relative ${t.cardBg} backdrop-blur-sm border ${t.border} rounded-3xl p-8 shadow-2xl`}>
-              <div className="aspect-square rounded-2xl overflow-hidden mb-6 border-4 border-purple-500/30">
-                <img src="/profile.png" alt="Shailesh" className="w-full h-full object-cover" />
+            <div className={`group relative ${t.cardBg} backdrop-blur-sm border ${t.border} rounded-3xl p-8 shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden`}>
+              {/* Animated border */}
+              <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500 via-orange-500 to-purple-500 animate-border-spin" 
+                     style={{padding: '2px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+              </div>
+              
+              <div className="aspect-square rounded-2xl overflow-hidden mb-6 border-4 border-purple-500/30 group-hover:border-orange-500/50 transition-all">
+                <img src="/profile.png" alt="Shailesh" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               </div>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
@@ -257,7 +306,13 @@ const SkillCard = ({ icon, name, level }) => (
           <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
             About <span className={t.accent}>Me</span>
           </h2>
-          <div className={`${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl p-8 shadow-xl`}>
+          <div className={`group relative ${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all overflow-hidden`}>
+            {/* Animated border */}
+            <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500 via-orange-500 to-purple-500 animate-border-spin" 
+                   style={{padding: '2px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+            </div>
+            
             <p className={`text-lg ${t.textSecondary} leading-relaxed mb-6`}>
               I'm a passionate full-stack developer with expertise in building scalable web applications. 
               With a strong foundation in software engineering principles, I focus on creating efficient, 
@@ -269,21 +324,21 @@ const SkillCard = ({ icon, name, level }) => (
               and database optimization.
             </p>
             <div className="grid md:grid-cols-3 gap-4">
-              <div className={`${t.cardBg} border ${t.border} rounded-xl p-4`}>
-                <h3 className={`font-semibold mb-2 ${t.accent}`}>Education</h3>
-                <p className={t.textSecondary}>B.Tech CSE</p>
-                <p className={`text-sm ${t.textSecondary} opacity-70`}>2022 - 2026</p>
-              </div>
-              <div className={`${t.cardBg} border ${t.border} rounded-xl p-4`}>
-                <h3 className={`font-semibold mb-2 ${t.accent}`}>Location</h3>
-                <p className={t.textSecondary}>Uttarakhand, India</p>
-                <p className={`text-sm ${t.textSecondary} opacity-70`}>Open to remote</p>
-              </div>
-              <div className={`${t.cardBg} border ${t.border} rounded-xl p-4`}>
-                <h3 className={`font-semibold mb-2 ${t.accent}`}>Experience</h3>
-                <p className={t.textSecondary}>Fresher</p>
-                <p className={`text-sm ${t.textSecondary} opacity-70`}>Open to opportunities</p>
-              </div>
+              {[
+                { title: 'Education', content: 'B.Tech CSE', sub: '2022 - 2026' },
+                { title: 'Location', content: 'Uttarakhand, India', sub: 'Open to remote' },
+                { title: 'Experience', content: 'Fresher', sub: 'Open to opportunities' }
+              ].map((item, idx) => (
+                <div key={idx} className={`group/card relative ${t.cardBg} border ${t.border} rounded-xl p-4 hover:scale-105 transition-all overflow-hidden`}>
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500 to-orange-500 animate-border-spin" 
+                         style={{padding: '1px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+                  </div>
+                  <h3 className={`font-semibold mb-2 ${t.accent}`}>{item.title}</h3>
+                  <p className={t.textSecondary}>{item.content}</p>
+                  <p className={`text-sm ${t.textSecondary} opacity-70`}>{item.sub}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -314,7 +369,13 @@ const SkillCard = ({ icon, name, level }) => (
                 link: null
               }
             ].map((exp, idx) => (
-              <div key={idx} className={`${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl p-8 shadow-xl hover:scale-[1.02] transition-all`}>
+              <div key={idx} className={`group relative ${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl p-8 shadow-xl hover:scale-[1.02] hover:shadow-2xl transition-all overflow-hidden`}>
+                {/* Animated border */}
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500 via-orange-500 to-purple-500 animate-border-spin" 
+                       style={{padding: '2px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+                </div>
+                
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                   <div>
                     <h3 className="text-2xl font-bold mb-1">{exp.role}</h3>
@@ -346,8 +407,8 @@ const SkillCard = ({ icon, name, level }) => (
         </div>
       </section>
 
-      {/* Skills Section */}
-     <section id="skills" className="py-20 px-6">
+      {/* Skills Section - Already has SkillCard with hover effects */}
+      <section id="skills" className="py-20 px-6">
   <div className="max-w-7xl mx-auto">
 
     <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
@@ -512,9 +573,16 @@ const SkillCard = ({ icon, name, level }) => (
                 liveLink: '#'
               }
             ].map((project, idx) => (
-              <div key={idx} className={`${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl overflow-hidden shadow-xl hover:scale-105 transition-all cursor-pointer`} onClick={() => { setSelectedProject(project); setModalImage(project.image); }}>
+              <div key={idx} className={`group relative ${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl overflow-hidden shadow-xl hover:scale-105 hover:shadow-2xl transition-all cursor-pointer`} 
+                   onClick={() => { setSelectedProject(project); setModalImage(project.image); }}>
+                {/* Animated border */}
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500 via-orange-500 to-purple-500 animate-border-spin" 
+                       style={{padding: '2px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+                </div>
+                
                 <div className="aspect-video overflow-hidden">
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+                  <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2">{project.title}</h3>
@@ -538,7 +606,7 @@ const SkillCard = ({ icon, name, level }) => (
         </div>
       </section>
 
-      {/* Contact Section */}
+      {/* Contact Section - Updated */}
       <section id="contact" className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center">
@@ -547,33 +615,51 @@ const SkillCard = ({ icon, name, level }) => (
           <p className={`text-center ${t.textSecondary} mb-12 text-lg`}>
             Open to internships, freelance, and full-time opportunities
           </p>
-          <div className={`${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl p-8 shadow-xl`}>
+          <div className={`group relative ${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl p-8 shadow-xl overflow-hidden`}>
+            <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500 via-orange-500 to-purple-500 animate-border-spin" 
+                   style={{padding: '2px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+            </div>
+            
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
-                <div className={`${t.cardBg} border ${t.border} rounded-xl p-4`}>
-                  <Mail className={`${t.accent} mb-2`} size={24} />
-                  <a href="mailto:shailesh07jukaria@gmail.com" className={`${t.textSecondary} hover:${t.accent.replace('text-', 'text-')}`}>
-                    shailesh07jukaria@gmail.com
-                  </a>
-                </div>
-                <div className={`${t.cardBg} border ${t.border} rounded-xl p-4`}>
-                  <Phone className={`${t.accent} mb-2`} size={24} />
-                  <a href="tel:+919368787282" className={`${t.textSecondary} hover:${t.accent.replace('text-', 'text-')}`}>
-                    +91 9368787282
-                  </a>
-                </div>
-                <div className={`${t.cardBg} border ${t.border} rounded-xl p-4`}>
-                  <MapPin className={`${t.accent} mb-2`} size={24} />
-                  <span className={t.textSecondary}>Champawat, Uttarakhand</span>
-                </div>
+                {[
+                  { Icon: Mail, text: 'shailesh07jukaria@gmail.com', href: 'mailto:shailesh07jukaria@gmail.com', copyText: 'shailesh07jukaria@gmail.com' },
+                  { Icon: Phone, text: '+91 9368787282', href: 'tel:+919368787282', copyText: '+919368787282' },
+                  { Icon: MapPin, text: 'Champawat, Uttarakhand', href: null, copyText: null }
+                ].map(({ Icon, text, href, copyText }, idx) => (
+                  <div key={idx} className={`group/item relative ${t.cardBg} border ${t.border} rounded-xl p-4 hover:scale-105 transition-all overflow-hidden cursor-pointer`}
+                       onClick={() => copyText && copyToClipboard(copyText, idx === 0 ? 'Email' : 'Phone')}>
+                    <div className="absolute inset-0 rounded-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500 to-orange-500 animate-border-spin" 
+                           style={{padding: '1px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+                    </div>
+                    <Icon className={`${t.accent} mb-2`} size={24} />
+                    {href ? (
+                      <a href={href} className={`${t.textSecondary} hover:${t.accent.replace('text-', 'text-')} block`} onClick={(e) => e.stopPropagation()}>
+                        {text}
+                      </a>
+                    ) : (
+                      <span className={t.textSecondary}>{text}</span>
+                    )}
+                    {copyText && <span className="text-xs opacity-60 block mt-1">Click to copy</span>}
+                  </div>
+                ))}
               </div>
-              <div className="flex flex-col justify-center">
-                <a href="mailto:shailesh07jukaria@gmail.com"
-                  className={`w-full px-8 py-4 ${t.buttonBg} ${t.buttonHover} rounded-lg font-semibold transition-all hover:scale-105 shadow-lg flex items-center justify-center gap-2 text-white mb-4`}>
+              <div className="flex flex-col justify-center gap-4">
+                <button 
+                  onClick={() => setShowContactForm(true)}
+                  className={`w-full px-8 py-4 ${t.buttonBg} ${t.buttonHover} rounded-lg font-semibold transition-all hover:scale-105 shadow-lg flex items-center justify-center gap-2 text-white`}>
                   <Send size={20} />
-                  Send Email
+                  Send Message
+                </button>
+                <a 
+                  href="mailto:shailesh07jukaria@gmail.com"
+                  className={`w-full px-8 py-4 border-2 border-purple-500 ${t.textSecondary} rounded-lg font-semibold transition-all hover:bg-purple-500/10 hover:scale-105 flex items-center justify-center gap-2`}>
+                  <Mail size={20} />
+                  Email Directly
                 </a>
-                <div className="flex gap-4 justify-center">
+                <div className="flex gap-4 justify-center mt-2">
                   <a href="https://github.com/shaileshjukaria" target="_blank" rel="noopener noreferrer"
                     className={`p-3 ${t.cardBg} border ${t.border} rounded-lg hover:scale-110 transition-all`}>
                     <Github size={24} />
@@ -588,6 +674,85 @@ const SkillCard = ({ icon, name, level }) => (
           </div>
         </div>
       </section>
+
+      {/* Contact Form Modal */}
+      {showContactForm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-6 py-12 backdrop-blur-sm bg-black/60" onClick={() => setShowContactForm(false)}>
+          <div className={`${t.cardBg} backdrop-blur-xl border ${t.border} rounded-2xl p-8 max-w-2xl w-full shadow-2xl`} onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Send Me a Message</h2>
+              <button onClick={() => setShowContactForm(false)} className={`${t.textSecondary} hover:${t.accent.replace('text-', 'text-')} transition-colors`}>
+                <X size={28} />
+              </button>
+            </div>
+            
+            <form onSubmit={handleContactSubmit} className="space-y-6">
+              <div>
+                <label className={`block mb-2 font-medium ${t.textSecondary}`}>Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  className={`w-full px-4 py-3 rounded-lg ${t.cardBg} border ${t.border} ${t.text} focus:outline-none focus:border-orange-500 transition-colors`}
+                  placeholder="Your Name"
+                />
+              </div>
+              
+              <div>
+                <label className={`block mb-2 font-medium ${t.textSecondary}`}>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className={`w-full px-4 py-3 rounded-lg ${t.cardBg} border ${t.border} ${t.text} focus:outline-none focus:border-orange-500 transition-colors`}
+                  placeholder="your.email@example.com"
+                />
+              </div>
+              
+              <div>
+                <label className={`block mb-2 font-medium ${t.textSecondary}`}>Message</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                  rows="5"
+                  className={`w-full px-4 py-3 rounded-lg ${t.cardBg} border ${t.border} ${t.text} focus:outline-none focus:border-orange-500 transition-colors resize-none`}
+                  placeholder="Tell me about your project or opportunity..."
+                />
+              </div>
+              
+              {formStatus === 'success' && (
+                <p className="text-green-500 text-center">Message sent successfully! ✓</p>
+              )}
+              {formStatus === 'error' && (
+                <p className="text-red-500 text-center">Failed to send message. Please try email directly.</p>
+              )}
+              
+              <div className="flex gap-4">
+                <button
+                  type="submit"
+                  disabled={formStatus === 'sending'}
+                  className={`flex-1 px-6 py-3 ${t.buttonBg} ${t.buttonHover} rounded-lg font-semibold transition-all hover:scale-105 text-white disabled:opacity-50 disabled:cursor-not-allowed`}
+                >
+                  {formStatus === 'sending' ? 'Sending...' : 'Send Message'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowContactForm(false)}
+                  className={`px-6 py-3 border-2 border-purple-500 ${t.textSecondary} rounded-lg font-semibold transition-all hover:bg-purple-500/10`}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Project Modal */}
       {selectedProject && (
@@ -774,10 +939,55 @@ const SkillCard = ({ icon, name, level }) => (
         </div>
       )}
 
-      {/* Footer */}
+      {/* Footer - Updated with Social Icons */}
       <footer className={`py-8 px-6 border-t ${t.border}`}>
-        <div className="max-w-6xl mx-auto text-center">
-          <p className={t.textSecondary}>© 2025 Shailesh Jukaria. All rights reserved.</p>
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            {/* Left side - Copyright */}
+            <p className={t.textSecondary}>© 2025 Shailesh Jukaria. All rights reserved.</p>
+            
+            {/* Right side - Social Media Icons */}
+            <div className="flex gap-4">
+              <a 
+                href="https://x.com/jukariashailesh?t=kUn6EjVMqGsQ1R7NLQCAaQ&s=09" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={`group relative p-3 ${t.cardBg} backdrop-blur-sm border ${t.border} rounded-full shadow-lg hover:scale-110 transition-all overflow-hidden`}
+              >
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 animate-border-spin" 
+                       style={{padding: '2px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+                </div>
+                <Twitter className={`${t.textSecondary} group-hover:text-blue-400 transition-colors`} size={20} />
+              </a>
+
+              <a 
+                href="https://www.instagram.com/shaileshjukaria?igsh=ZHlvMjh4YmFkbWtu" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={`group relative p-3 ${t.cardBg} backdrop-blur-sm border ${t.border} rounded-full shadow-lg hover:scale-110 transition-all overflow-hidden`}
+              >
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 animate-border-spin" 
+                       style={{padding: '2px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+                </div>
+                <Instagram className={`${t.textSecondary} group-hover:text-pink-400 transition-colors`} size={20} />
+              </a>
+
+              <a 
+                href="https://www.facebook.com/jukariashailesh" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={`group relative p-3 ${t.cardBg} backdrop-blur-sm border ${t.border} rounded-full shadow-lg hover:scale-110 transition-all overflow-hidden`}
+              >
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 animate-border-spin" 
+                       style={{padding: '2px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+                </div>
+                <Facebook className={`${t.textSecondary} group-hover:text-blue-500 transition-colors`} size={20} />
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
