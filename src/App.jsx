@@ -624,25 +624,33 @@ const SkillCard = ({ icon, name, level }) => (
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 {[
-                  { Icon: Mail, text: 'shailesh07jukaria@gmail.com', href: 'mailto:shailesh07jukaria@gmail.com', copyText: 'shailesh07jukaria@gmail.com' },
-                  { Icon: Phone, text: '+91 9368787282', href: 'tel:+919368787282', copyText: '+919368787282' },
-                  { Icon: MapPin, text: 'Champawat, Uttarakhand', href: null, copyText: null }
-                ].map(({ Icon, text, href, copyText }, idx) => (
-                  <div key={idx} className={`group/item relative ${t.cardBg} border ${t.border} rounded-xl p-4 hover:scale-105 transition-all overflow-hidden cursor-pointer`}
-                       onClick={() => copyText && copyToClipboard(copyText, idx === 0 ? 'Email' : 'Phone')}>
-                    <div className="absolute inset-0 rounded-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
-                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500 to-orange-500 animate-border-spin" 
-                           style={{padding: '1px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
-                    </div>
-                    <Icon className={`${t.accent} mb-2`} size={24} />
+                  { Icon: Mail, text: 'shailesh07jukaria@gmail.com', href: 'mailto:shailesh07jukaria@gmail.com' },
+                  { Icon: Phone, text: '+91 9368787282', href: 'tel:+919368787282' },
+                  { Icon: MapPin, text: 'Champawat, Uttarakhand', href: null }
+                ].map(({ Icon, text, href }, idx) => (
+                  <div key={idx}>
                     {href ? (
-                      <a href={href} className={`${t.textSecondary} hover:${t.accent.replace('text-', 'text-')} block`} onClick={(e) => e.stopPropagation()}>
-                        {text}
+                      <a 
+                        href={href}
+                        className={`group/item relative ${t.cardBg} border ${t.border} rounded-xl p-4 hover:scale-105 transition-all overflow-hidden flex items-start gap-3 cursor-pointer block`}
+                      >
+                        <div className="absolute inset-0 rounded-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500 to-orange-500 animate-border-spin" 
+                               style={{padding: '1px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+                        </div>
+                        <Icon className={`${t.accent} flex-shrink-0 mt-1`} size={24} />
+                        <span className={`${t.textSecondary} group-hover/item:${t.accent.replace('text-', 'text-')} transition-colors`}>{text}</span>
                       </a>
                     ) : (
-                      <span className={t.textSecondary}>{text}</span>
+                      <div className={`group/item relative ${t.cardBg} border ${t.border} rounded-xl p-4 overflow-hidden flex items-start gap-3`}>
+                        <div className="absolute inset-0 rounded-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500 to-orange-500 animate-border-spin" 
+                               style={{padding: '1px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+                        </div>
+                        <Icon className={`${t.accent} flex-shrink-0 mt-1`} size={24} />
+                        <span className={t.textSecondary}>{text}</span>
+                      </div>
                     )}
-                    {copyText && <span className="text-xs opacity-60 block mt-1">Click to copy</span>}
                   </div>
                 ))}
               </div>
