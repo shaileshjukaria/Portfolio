@@ -621,63 +621,37 @@ const SkillCard = ({ icon, name, level }) => (
                    style={{padding: '2px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                {[
-                  { Icon: Mail, text: 'shailesh07jukaria@gmail.com', href: 'mailto:shailesh07jukaria@gmail.com' },
-                  { Icon: Phone, text: '+91 9368787282', href: 'tel:+919368787282' },
-                  { Icon: MapPin, text: 'Champawat, Uttarakhand', href: null }
-                ].map(({ Icon, text, href }, idx) => (
-                  <div key={idx}>
-                    {href ? (
-                      <a 
-                        href={href}
-                        className={`group/item relative ${t.cardBg} border ${t.border} rounded-xl p-4 hover:scale-105 transition-all overflow-hidden flex items-start gap-3 cursor-pointer block`}
-                      >
-                        <div className="absolute inset-0 rounded-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
-                          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500 to-orange-500 animate-border-spin" 
-                               style={{padding: '1px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
-                        </div>
-                        <Icon className={`${t.accent} flex-shrink-0 mt-1`} size={24} />
-                        <span className={`${t.textSecondary} group-hover/item:${t.accent.replace('text-', 'text-')} transition-colors`}>{text}</span>
-                      </a>
-                    ) : (
-                      <div className={`group/item relative ${t.cardBg} border ${t.border} rounded-xl p-4 overflow-hidden flex items-start gap-3`}>
-                        <div className="absolute inset-0 rounded-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
-                          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500 to-orange-500 animate-border-spin" 
-                               style={{padding: '1px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
-                        </div>
-                        <Icon className={`${t.accent} flex-shrink-0 mt-1`} size={24} />
-                        <span className={t.textSecondary}>{text}</span>
+            <div className="space-y-6">
+              {[
+                { Icon: Mail, text: 'shailesh07jukaria@gmail.com', href: 'mailto:shailesh07jukaria@gmail.com' },
+                { Icon: Phone, text: '+91 9368787282', href: 'tel:+919368787282' },
+                { Icon: MapPin, text: 'Champawat, Uttarakhand', href: null }
+              ].map(({ Icon, text, href }, idx) => (
+                <div key={idx}>
+                  {href ? (
+                    <a 
+                      href={href}
+                      className={`group/item relative ${t.cardBg} border ${t.border} rounded-xl p-4 hover:scale-105 transition-all overflow-hidden flex items-start gap-3 cursor-pointer`}
+                    >
+                      <div className="absolute inset-0 rounded-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500 to-orange-500 animate-border-spin" 
+                             style={{padding: '1px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
                       </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-col justify-center gap-4">
-                <button 
-                  onClick={() => setShowContactForm(true)}
-                  className={`w-full px-8 py-4 ${t.buttonBg} ${t.buttonHover} rounded-lg font-semibold transition-all hover:scale-105 shadow-lg flex items-center justify-center gap-2 text-white`}>
-                  <Send size={20} />
-                  Send Message
-                </button>
-                <a 
-                  href="mailto:shailesh07jukaria@gmail.com"
-                  className={`w-full px-8 py-4 border-2 border-purple-500 ${t.textSecondary} rounded-lg font-semibold transition-all hover:bg-purple-500/10 hover:scale-105 flex items-center justify-center gap-2`}>
-                  <Mail size={20} />
-                  Email Directly
-                </a>
-                <div className="flex gap-4 justify-center mt-2">
-                  <a href="https://github.com/shaileshjukaria" target="_blank" rel="noopener noreferrer"
-                    className={`p-3 ${t.cardBg} border ${t.border} rounded-lg hover:scale-110 transition-all`}>
-                    <Github size={24} />
-                  </a>
-                  <a href="https://www.linkedin.com/in/shailesh-jukaria-1b6998361" target="_blank" rel="noopener noreferrer"
-                    className={`p-3 ${t.cardBg} border ${t.border} rounded-lg hover:scale-110 transition-all`}>
-                    <Linkedin size={24} />
-                  </a>
+                      <Icon className={`${t.accent} flex-shrink-0 mt-1`} size={24} />
+                      <span className={`${t.textSecondary} group-hover/item:${t.accent.replace('text-', 'text-')} transition-colors`}>{text}</span>
+                    </a>
+                  ) : (
+                    <div className={`group/item relative ${t.cardBg} border ${t.border} rounded-xl p-4 overflow-hidden flex items-start gap-3`}>
+                      <div className="absolute inset-0 rounded-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500 to-orange-500 animate-border-spin" 
+                             style={{padding: '1px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+                      </div>
+                      <Icon className={`${t.accent} flex-shrink-0 mt-1`} size={24} />
+                      <span className={t.textSecondary}>{text}</span>
+                    </div>
+                  )}
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
