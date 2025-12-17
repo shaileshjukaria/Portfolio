@@ -381,7 +381,7 @@ const SkillCard = ({ icon, name, level }) => (
                     <h3 className="text-2xl font-bold mb-1">{exp.role}</h3>
                     {exp.link ? (
                       <a href={exp.link} target="_blank" rel="noopener noreferrer" 
-                        className={`${t.accent} hover:underline flex items-center gap-1`}>
+                        className={`${t.accent} hover:underline flex items-center gap-1 cursor-pointer`}>
                         {exp.company}
                         <ExternalLink size={16} />
                       </a>
@@ -583,7 +583,7 @@ const SkillCard = ({ icon, name, level }) => (
                   </div>
                   <button
                     onClick={(e) => { e.stopPropagation(); setSelectedProject(project); setModalImage(project.image); }}
-                    className={`${t.accent} hover:underline flex items-center gap-1 text-sm`}>
+                    className={`${t.accent} hover:underline flex items-center gap-1 text-sm cursor-pointer`}>
                     View Details <ExternalLink size={14} />
                   </button>
                 </div>
@@ -650,7 +650,7 @@ const SkillCard = ({ icon, name, level }) => (
           <div className={`${t.cardBg} backdrop-blur-xl border ${t.border} rounded-2xl p-8 max-w-2xl w-full shadow-2xl`} onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold">Send Me a Message</h2>
-              <button onClick={() => setShowContactForm(false)} className={`${t.textSecondary} hover:${t.accent.replace('text-', 'text-')} transition-colors`}>
+              <button onClick={() => setShowContactForm(false)} className={`${t.textSecondary} hover:${t.accent.replace('text-', 'text-')} transition-colors cursor-pointer`}>
                 <X size={28} />
               </button>
             </div>
@@ -713,7 +713,7 @@ const SkillCard = ({ icon, name, level }) => (
                 <button
                   type="button"
                   onClick={() => setShowContactForm(false)}
-                  className={`px-6 py-3 border-2 border-purple-500 ${t.textSecondary} rounded-lg font-semibold transition-all hover:bg-purple-500/10`}
+                  className={`px-6 py-3 border-2 border-purple-500 ${t.textSecondary} rounded-lg font-semibold transition-all hover:bg-purple-500/10 cursor-pointer`}
                 >
                   Cancel
                 </button>
@@ -743,7 +743,7 @@ const SkillCard = ({ icon, name, level }) => (
               </div>
               <button 
                 onClick={() => { setSelectedProject(null); setModalImage(null); }} 
-                className={`${t.textSecondary} hover:${t.accent.replace('text-', 'text-')} transition-all hover:rotate-90 duration-300`}
+                className={`${t.textSecondary} hover:${t.accent.replace('text-', 'text-')} transition-all hover:rotate-90 duration-300 cursor-pointer`}
               >
                 <X size={28} />
               </button>
@@ -832,7 +832,7 @@ const SkillCard = ({ icon, name, level }) => (
                     <button 
                       key={i} 
                       onClick={() => setModalImage(shot)} 
-                      className={`w-40 h-24 flex-shrink-0 rounded-lg overflow-hidden border-2 ${modalImage === shot ? 'border-orange-500' : 'border-purple-500/20'} hover:border-orange-500 transition-all hover:scale-105`}
+                      className={`w-40 h-24 flex-shrink-0 rounded-lg overflow-hidden border-2 ${modalImage === shot ? 'border-orange-500' : 'border-purple-500/20'} hover:border-orange-500 transition-all hover:scale-105 cursor-pointer`}
                     >
                       <img 
                         src={shot} 
@@ -878,7 +878,7 @@ const SkillCard = ({ icon, name, level }) => (
           <div className={`${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl p-8 max-w-4xl w-full h-[90vh] flex flex-col shadow-2xl`} onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold">My Resume</h2>
-              <button onClick={() => setShowResume(false)} className={`${t.textSecondary} hover:${t.accent.replace('text-', 'text-')} transition-colors`}>
+              <button onClick={() => setShowResume(false)} className={`${t.textSecondary} hover:${t.accent.replace('text-', 'text-')} transition-colors cursor-pointer`}>
                 <X size={28} />
               </button>
             </div>
@@ -893,13 +893,13 @@ const SkillCard = ({ icon, name, level }) => (
               <a
                 href="/Shailesh-FSWD.pdf"
                 download
-                className={`flex-1 px-6 py-3 ${t.buttonBg} ${t.buttonHover} rounded-lg font-semibold transition-all hover:scale-105 text-center`}
+                className={`flex-1 px-6 py-3 ${t.buttonBg} ${t.buttonHover} rounded-lg font-semibold transition-all hover:scale-105 text-center cursor-pointer`}
               >
                 Download PDF
               </a>
               <button
                 onClick={() => setShowResume(false)}
-                className={`px-6 py-3 border-2 border-purple-500 ${t.textSecondary} rounded-lg font-semibold transition-all hover:bg-purple-500/10`}
+                className={`px-6 py-3 border-2 border-purple-500 ${t.textSecondary} rounded-lg font-semibold transition-all hover:bg-purple-500/10 cursor-pointer`}
               >
                 Close
               </button>
