@@ -366,7 +366,7 @@ const SkillCard = ({ icon, name, level }) => (
                 period: 'Aug 2023 - Aug 2024',
                 desc: 'Led workshops on modern full stack development. Helped students build scalable applications and strengthen their programming fundamentals.',
                 skills: ['Teaching', 'React', 'MongoDB', 'Mentorship'],
-                link: null
+                link: 'https://www.wecode.college/'
               }
             ].map((exp, idx) => (
               <div key={idx} className={`group relative ${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl p-8 shadow-xl hover:scale-[1.02] hover:shadow-2xl transition-all overflow-hidden`}>
