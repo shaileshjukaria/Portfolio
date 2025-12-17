@@ -473,6 +473,21 @@ const SkillCard = ({ icon, name, level }) => (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
+                title: 'Imaginova - AI Image Generator',
+                desc: 'Text-to-image generation app with MERN stack. Input text prompts and receive AI-generated images.',
+                longDesc: 'Imaginova is an ongoing project that combines full-stack web development with AI integration. Users input text prompts and receive AI-generated images through a seamless interface. I built this to understand how to connect frontend, backend, database, and external AI services end-to-end. The app handles asynchronous API calls, manages user authentication, stores image history with metadata, and provides a responsive experience across devices. Each request goes through the full stack�from the React UI to the Node.js backend, then to MongoDB for storage, and finally to the AI generation service.',
+                features: ['User authentication and session management', 'Text prompt input UI', 'AI image generation via external API', 'Image gallery and history with metadata', 'Download generated images', 'Responsive design across devices', 'Loading states and error handling'],
+                role: 'Full-Stack Developer',
+                challenges: ['Integrating external AI service APIs', 'Managing asynchronous requests and latency', 'Designing intuitive UX for image generation workflow', 'Storing and retrieving user-generated image metadata'],
+                tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'AI API Integration', 'Authentication (Token/Session)'],
+                image: '/imaginova.jpeg',
+                screenshots: [
+                  '/imaginova.jpeg'
+                ],
+                githubLink: 'https://github.com/shaileshjukaria/Imaginova',
+                liveLink: 'https://imaginova-ai.vercel.app/'
+              },
+              {
                 title: 'Build-Linux',
                 desc: 'Tooling/automation project to build a Linux system (kernel + packages) from source.',
                 longDesc: `A tooling and automation project aimed at simplifying the process of building a Linux system (kernel + packages) from source. The scripts automate downloading sources, compiling the kernel and packages, applying configuration templates/patches, and assembling a usable filesystem or installable image. This project is useful for custom distributions, reproducible builds, or learning how Linux components are assembled from source.`,
@@ -501,7 +516,7 @@ const SkillCard = ({ icon, name, level }) => (
               {
                 title: 'PersonalSpace',
                 desc: 'Open-source self-hosted cloud storage web app for uploading, managing and sharing files and folders.',
-                longDesc: `PersonalSpace is an open-source cloud file storage web app (similar to Google Drive). It allows users to upload, store, manage, download, and share files and folders securely via a browser — effectively letting you host your own “cloud storage” service. Users can self-host the application on their server or any trusted platform, then access storage through a web interface. The app supports both file and folder uploads/downloads (folders are zipped automatically on download), media previews (image/video viewer & gallery), thumbnails for fast browsing, and file/folder sharing. The project focuses on data ownership and privacy — users retain control over their files instead of relying on third-party providers.`,
+                longDesc: `PersonalSpace is an open-source cloud file storage web app (similar to Google Drive). It allows users to upload, store, manage, download, and share files and folders securely via a browser — effectively letting you host your own "cloud storage" service. Users can self-host the application on their server or any trusted platform, then access storage through a web interface. The app supports both file and folder uploads/downloads (folders are zipped automatically on download), media previews (image/video viewer & gallery), thumbnails for fast browsing, and file/folder sharing. The project focuses on data ownership and privacy — users retain control over their files instead of relying on third-party providers.`,
                 features: [
                   'File upload / download (single files)',
                   'Folder upload / download (folders ZIP automatically)',
@@ -533,43 +548,15 @@ const SkillCard = ({ icon, name, level }) => (
                 title: 'Anime-TV-Series-Tracker',
                 desc: 'A web application to track watched anime and TV series — add shows, mark episodes, and manage watch status.',
                 longDesc: `A web application to help users track their watched anime and TV series — allowing them to add new shows, mark episodes as watched, maintain history/status (watching / completed / plan-to-watch), and optionally add ratings or notes. The app acts as a personal tracker/media library to organize shows, view progress, and filter or sort by status. The project demonstrates full-stack development including frontend state management, backend CRUD APIs, and persistent storage for user data.`,
-                features: [
-                  'User registration & login (multi-user support)',
-                  'Add / remove series with metadata (title, episodes, description)',
-                  'Mark episodes watched and update progress automatically',
-                  'Series status: watching / completed / on-hold / plan-to-watch',
-                  'View history with sorting and filtering by status',
-                  'Optional ratings and per-show notes/comments',
-                  'Responsive UI for mobile and desktop'
-                ],
+                features: ['User registration & login (multi-user support)', 'Add / remove series with metadata (title, episodes, description)', 'Mark episodes watched and update progress automatically', 'Series status: watching / completed / on-hold / plan-to-watch', 'View history with sorting and filtering by status', 'Optional ratings and per-show notes/comments', 'Responsive UI for mobile and desktop'],
                 role: 'Full-Stack Developer',
-                challenges: [
-                  'Designing a flexible data model to store shows, episodes and user progress',
-                  'Handling asynchronous database calls and keeping UI state in sync',
-                  'Dealing with inconsistent or partial data from public APIs',
-                  'Implementing efficient filtering/sorting for large watchlists'
-                ],
+                challenges: ['Designing a flexible data model to store shows, episodes and user progress', 'Handling asynchronous database calls and keeping UI state in sync', 'Dealing with inconsistent or partial data from public APIs', 'Implementing efficient filtering/sorting for large watchlists'],
                 tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS', 'REST APIs'],
                 image: '/anime-tracker-poster.jpeg',
                 screenshots: [
                   '/anime-tracker-poster.jpeg'
                 ],
                 githubLink: 'https://github.com/shaileshjukaria/Anime-TV-Series-Tracker',
-                liveLink: '#'
-              },
-              {
-                title: 'Imaginova - AI Image Generator',
-                desc: 'Text-to-image generation app with MERN stack. Input text prompts and receive AI-generated images.',
-                longDesc: 'Imaginova is an ongoing project that combines full-stack web development with AI integration. Users input text prompts and receive AI-generated images through a seamless interface. I built this to understand how to connect frontend, backend, database, and external AI services end-to-end. The app handles asynchronous API calls, manages user authentication, stores image history with metadata, and provides a responsive experience across devices. Each request goes through the full stack�from the React UI to the Node.js backend, then to MongoDB for storage, and finally to the AI generation service.',
-                features: ['User authentication and session management', 'Text prompt input UI', 'AI image generation via external API', 'Image gallery and history with metadata', 'Download generated images', 'Responsive design across devices', 'Loading states and error handling'],
-                role: 'Full-Stack Developer',
-                challenges: ['Integrating external AI service APIs', 'Managing asynchronous requests and latency', 'Designing intuitive UX for image generation workflow', 'Storing and retrieving user-generated image metadata'],
-                tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'AI API Integration', 'Authentication (Token/Session)'],
-                image: '/imaginova.jpeg',
-                screenshots: [
-                  '/imaginova.jpeg'
-                ],
-                githubLink: 'https://github.com/shaileshjukaria/Imaginova',
                 liveLink: '#'
               }
             ].map((project, idx) => (
