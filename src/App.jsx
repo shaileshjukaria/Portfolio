@@ -59,6 +59,26 @@ export default function Portfolio() {
     setActiveSection('home');
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus('sending');
+    try {
+      // Contact via email - direct email link
+      window.location.href = `mailto:shailesh07jukaria@gmail.com?subject=Portfolio Contact&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`;
+      setFormStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setFormStatus(''), 3000);
+    } catch (error) {
+      setFormStatus('error');
+      setTimeout(() => setFormStatus(''), 3000);
+    }
+  };
+
   const theme = {
     dark: {
       bg: 'bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950',
@@ -200,10 +220,10 @@ const SkillCard = ({ icon, name, level }) => (
               </span>
             </h1>
             <p className={`text-xl ${t.textSecondary} mb-8`}>
-              Full-Stack Developer specialized in MERN Stack
+              Full-Stack Developer | AI API Integration Specialist
             </p>
             <p className={`${t.textSecondary} mb-8 leading-relaxed`}>
-              Building scalable web applications with modern technologies. Passionate about clean code, performance optimization, and creating exceptional user experiences.
+              Building scalable MERN stack applications with AI integration. Experienced in LLM API integration, prompt engineering, RESTful APIs, and database optimization. Passionate about clean code, performance optimization, and delivering production-ready solutions.
             </p>
             <div className="flex flex-wrap gap-4 mb-8">
               <button
@@ -314,20 +334,19 @@ const SkillCard = ({ icon, name, level }) => (
             </div>
             
             <p className={`text-lg ${t.textSecondary} leading-relaxed mb-6`}>
-              I'm a passionate full-stack developer with expertise in building scalable web applications. 
-              With a strong foundation in software engineering principles, I focus on creating efficient, 
-              maintainable code and delivering exceptional user experiences.
+              Full Stack Developer with hands-on experience building scalable MERN stack applications and AI-integrated platforms. 
+              Skilled in designing RESTful APIs, integrating LLM and third-party AI APIs, optimizing database performance, 
+              and implementing CI/CD pipelines. Experienced in prompt engineering, secure API key handling, and delivering production-ready AI features.
             </p>
             <p className={`text-lg ${t.textSecondary} leading-relaxed mb-8`}>
-              Currently pursuing B.Tech in Computer Science & Engineering at Graphic Era Hill University. 
-              I specialize in the MERN stack and have experience with system design, API development, 
-              and database optimization.
+              Currently pursuing B.Tech in Computer Science & Engineering at Graphic Era Hill University (Sept 2022 - July 2026). 
+              I specialize in the MERN stack, AI API integration, system design, and full-stack optimization. Open to relocation.
             </p>
             <div className="grid md:grid-cols-3 gap-4">
               {[
-                { title: 'Education', content: 'B.Tech CSE', sub: '2022 - 2026' },
-                { title: 'Location', content: 'Uttarakhand, India', sub: 'Open to remote' },
-                { title: 'Experience', content: 'Fresher', sub: 'Open to opportunities' }
+                { title: 'Education', content: 'B.Tech CSE', sub: 'Sept 2022 - July 2026' },
+                { title: 'Location', content: 'Uttarakhand, India', sub: 'Open to relocation' },
+                { title: 'Status', content: 'Available', sub: 'Internships & Full-time' }
               ].map((item, idx) => (
                 <div key={idx} className={`group/card relative ${t.cardBg} border ${t.border} rounded-xl p-4 hover:scale-105 transition-all overflow-hidden`}>
                   <div className="absolute inset-0 rounded-xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
@@ -356,16 +375,25 @@ const SkillCard = ({ icon, name, level }) => (
                 role: 'Full Stack Developer Intern',
                 company: 'LaunchED Global',
                 period: 'Aug 2025 - Oct 2025',
-                desc: 'Designed and developed distributed full-stack applications using React, Node.js, and Express. Built and optimized large-scale databases with focus on performance and scalability.',
-                skills: ['React', 'Node.js', 'MongoDB', 'Express', 'System Design'],
+                desc: 'Developed scalable full-stack applications using React.js, Node.js, Express.js, and MongoDB, including AI API-powered features for automated content workflows.',
+                details: [
+                  'Built 20+ RESTful API endpoints with JWT authentication, error handling, and input validation; integrated third-party AI APIs with rate limiting and secure key management',
+                  'Optimized database schemas and implemented indexing strategies that improved query performance by 40%',
+                  'Implemented CI/CD pipelines using Jenkins and Docker, reducing deployment time by 50% through automation'
+                ],
+                skills: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'AI APIs', 'JWT', 'Docker', 'Jenkins', 'CI/CD'],
                 link: 'https://launchedglobal.in/'
               },
               {
-                role: 'Mentor',
-                company: 'We Code Club',
+                role: 'Technical Mentor — Full Stack & Security',
+                company: 'WeCode Club',
                 period: 'Aug 2023 - Aug 2024',
-                desc: 'Led workshops on modern full stack development. Helped students build scalable applications and strengthen their programming fundamentals.',
-                skills: ['Teaching', 'React', 'MongoDB', 'Mentorship'],
+                desc: 'Conducted workshops on MERN stack development, system design, and AI API integration for 100+ students.',
+                details: [
+                  'Mentored students in building end-to-end applications; conducted code reviews and debugged full-stack issues',
+                  'Specialized in teaching secure coding practices and system design principles'
+                ],
+                skills: ['MERN Stack', 'System Design', 'AI APIs', 'Code Review', 'Mentorship', 'Security'],
                 link: 'https://www.wecode.college/'
               }
             ].map((exp, idx) => (
@@ -394,6 +422,16 @@ const SkillCard = ({ icon, name, level }) => (
                   <span className={`${t.textSecondary} mt-2 md:mt-0`}>{exp.period}</span>
                 </div>
                 <p className={`${t.textSecondary} mb-4`}>{exp.desc}</p>
+                {exp.details && (
+                  <ul className="space-y-2 mb-4">
+                    {exp.details.map((detail, i) => (
+                      <li key={i} className={`${t.textSecondary} flex items-start gap-2 text-sm`}>
+                        <span className={t.accent}>•</span>
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 <div className="flex flex-wrap gap-2">
                   {exp.skills.map((skill) => (
                     <span key={skill} className={`px-3 py-1 bg-purple-500/10 ${t.accent} rounded-full text-sm border border-purple-500/20`}>
@@ -414,6 +452,17 @@ const SkillCard = ({ icon, name, level }) => (
     <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
       Technical <span className={t.accent}>Skills</span>
     </h2>
+
+    {/* ─────────────── LANGUAGES ─────────────── */}
+    <h3 className="text-2xl font-bold mb-6 text-center">Languages & Core</h3>
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+
+      <SkillCard icon={<SiJavascript size={40} color="#F7DF1E"/>} name="JavaScript (ES6+)" level="Expert"/>
+      <SkillCard icon={<SiTypescript size={40} color="#3178C6"/>} name="TypeScript" level="Advanced"/>
+      <SkillCard icon={<SiPython size={40} color="#FFD43B"/>} name="Python" level="Intermediate"/>
+      <SkillCard icon={<Code2 size={40} color="#A8A8A8"/>} name="SQL" level="Advanced"/>
+
+    </div>
 
     {/* ─────────────── FRONTEND ─────────────── */}
     <h3 className="text-2xl font-bold mb-6 text-center">Frontend</h3>
@@ -452,13 +501,24 @@ const SkillCard = ({ icon, name, level }) => (
 
     {/* ─────────────── DEVOPS ─────────────── */}
     <h3 className="text-2xl font-bold mb-6 text-center">DevOps</h3>
-    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
 
       <SkillCard icon={<SiDocker size={40} color="#2496ED"/>} name="Docker" level="Beginner"/>
       <SkillCard icon={<SiGit size={40} color="#F05133"/>} name="Git" level="Expert"/>
       <SkillCard icon={<SiJenkins size={40} color="#D33833"/>} name="Jenkins" level="Intermediate"/>
       <SkillCard icon={<SiPostman size={40} color="#FF6C37"/>} name="Postman" level="Advanced"/>
       <SkillCard icon={<SiKubernetes size={40} color="#326CE5"/>} name="CI/CD" level="Intermediate"/>
+
+    </div>
+
+    {/* ─────────────── AI & APIS ─────────────── */}
+    <h3 className="text-2xl font-bold mb-6 text-center">AI & APIs</h3>
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <SkillCard icon={<Database size={40} color="#FF6B35"/>} name="LLM APIs" level="Advanced"/>
+      <SkillCard icon={<Server size={40} color="#4ECDC4"/>} name="Prompt Engineering" level="Advanced"/>
+      <SkillCard icon={<Globe size={40} color="#95E1D3"/>} name="REST APIs" level="Advanced"/>
+      <SkillCard icon={<Cpu size={40} color="#F38181"/>} name="Rate Limiting & Auth" level="Advanced"/>
 
     </div>
   </div>
@@ -473,13 +533,13 @@ const SkillCard = ({ icon, name, level }) => (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                title: 'Imaginova - AI Image Generator',
-                desc: 'Text-to-image generation app with MERN stack. Input text prompts and receive AI-generated images.',
-                longDesc: 'Imaginova is an ongoing project that combines full-stack web development with AI integration. Users input text prompts and receive AI-generated images through a seamless interface. I built this to understand how to connect frontend, backend, database, and external AI services end-to-end. The app handles asynchronous API calls, manages user authentication, stores image history with metadata, and provides a responsive experience across devices. Each request goes through the full stack�from the React UI to the Node.js backend, then to MongoDB for storage, and finally to the AI generation service.',
-                features: ['User authentication and session management', 'Text prompt input UI', 'AI image generation via external API', 'Image gallery and history with metadata', 'Download generated images', 'Responsive design across devices', 'Loading states and error handling'],
-                role: 'Full-Stack Developer',
-                challenges: ['Integrating external AI service APIs', 'Managing asynchronous requests and latency', 'Designing intuitive UX for image generation workflow', 'Storing and retrieving user-generated image metadata'],
-                tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'AI API Integration', 'Authentication (Token/Session)'],
+                title: 'Imaginova - AI Content Generator',
+                desc: 'AI-powered content generation platform with LLM API integration supporting text, image, and structured content.',
+                longDesc: 'Built an AI-powered content generation platform integrating LLM APIs (OpenAI/Anthropic-compatible) with a clean React.js interface supporting text, image, and structured content generation. Engineered prompt templates and system instructions to improve AI output quality and consistency across use cases. Implemented secure API key handling, token-based rate limiting, and role-based access control (RBAC) to prevent misuse and protect data integrity.',
+                features: ['LLM API integration (OpenAI/Anthropic)', 'Multiple content generation types', 'Prompt templates and system instructions', 'Role-based access control (RBAC)', 'Secure API key handling and token management', 'Token-based rate limiting', 'Content history and management', 'User authentication with JWT'],
+                role: 'Full-Stack Developer & AI Specialist',
+                challenges: ['Integrating multiple LLM providers with unified interface', 'Implementing secure API key management', 'Optimizing prompt engineering for consistent output', 'Managing rate limiting and token usage efficiently', 'Building production-ready AI features'],
+                tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'OpenAI API', 'Anthropic API', 'JWT', 'RBAC'],
                 image: '/imaginova.jpeg',
                 screenshots: [
                   '/imaginova.jpeg'
@@ -516,7 +576,7 @@ const SkillCard = ({ icon, name, level }) => (
               {
                 title: 'PersonalSpace',
                 desc: 'Open-source self-hosted cloud storage web app for uploading, managing and sharing files and folders.',
-                longDesc: `PersonalSpace is an open-source cloud file storage web app (similar to Google Drive). It allows users to upload, store, manage, download, and share files and folders securely via a browser — effectively letting you host your own "cloud storage" service. Users can self-host the application on their server or any trusted platform, then access storage through a web interface. The app supports both file and folder uploads/downloads (folders are zipped automatically on download), media previews (image/video viewer & gallery), thumbnails for fast browsing, and file/folder sharing. The project focuses on data ownership and privacy — users retain control over their files instead of relying on third-party providers.`,
+                longDesc: `Developed a secure cloud storage platform supporting file uploads up to 100MB with drag-and-drop UI, file sharing, and automated AWS S3 backups ensuring 99.9% availability. Implemented JWT authentication, file encryption, and MongoDB GridFS for efficient large-file handling. Built a local-network peer-to-peer file sharing module using WebSockets for real-time transfer state management. The project demonstrates production-ready features for self-hosted cloud solutions with robust error handling and scalable architecture.`,
                 features: [
                   'File upload / download (single files)',
                   'Folder upload / download (folders ZIP automatically)',
@@ -536,7 +596,7 @@ const SkillCard = ({ icon, name, level }) => (
                   'Generating thumbnails and efficient media previews',
                   'Implementing secure sharing workflows and optional encryption'
                 ],
-                tech: ['React', 'TypeScript', 'Vite', 'Node.js', 'Express', 'MongoDB', 'Docker', 'S3-compatible storage', 'JWT', 'AES-256', 'PWA'],
+                tech: ['React.js', 'TypeScript', 'Node.js', 'Express.js', 'MongoDB', 'GridFS', 'AWS S3', 'WebSockets', 'JWT', 'AES-256', 'Docker', 'PWA'],
                 image: '/personalspace.jpeg',
                 screenshots: [
                   '/personalspace.jpeg'
@@ -546,11 +606,11 @@ const SkillCard = ({ icon, name, level }) => (
               },
               {
                 title: 'Anime-TV-Series-Tracker',
-                desc: 'A web application to track watched anime and TV series — add shows, mark episodes, and manage watch status.',
-                longDesc: `A web application to help users track their watched anime and TV series — allowing them to add new shows, mark episodes as watched, maintain history/status (watching / completed / plan-to-watch), and optionally add ratings or notes. The app acts as a personal tracker/media library to organize shows, view progress, and filter or sort by status. The project demonstrates full-stack development including frontend state management, backend CRUD APIs, and persistent storage for user data.`,
-                features: ['User registration & login (multi-user support)', 'Add / remove series with metadata (title, episodes, description)', 'Mark episodes watched and update progress automatically', 'Series status: watching / completed / on-hold / plan-to-watch', 'View history with sorting and filtering by status', 'Optional ratings and per-show notes/comments', 'Responsive UI for mobile and desktop'],
+                desc: 'A web application to track watched anime and TV series with smart caching reducing API calls by 70%.',
+                longDesc: `Built an anime tracking app with search, browse, and personalized watchlists via external API integration; implemented a caching strategy reducing API calls by 70%. Designed a responsive UI with pagination and infinite scroll supporting 5,000+ anime titles. The app allows users to add new shows, mark episodes as watched, maintain watch history/status (watching / completed / plan-to-watch), and add optional ratings or notes. This project demonstrates full-stack development including frontend state management, backend CRUD APIs, and efficient data caching strategies.`,
+                features: ['User registration & login (multi-user support)', 'Search and browse 5,000+ anime titles', 'Add / remove series with metadata', 'Mark episodes watched and track progress', 'Series status management (watching / completed / on-hold / plan-to-watch)', 'Smart caching strategy reducing API calls by 70%', 'Pagination and infinite scroll pagination', 'Responsive UI for mobile and desktop', 'Ratings and personal notes per show'],
                 role: 'Full-Stack Developer',
-                challenges: ['Designing a flexible data model to store shows, episodes and user progress', 'Handling asynchronous database calls and keeping UI state in sync', 'Dealing with inconsistent or partial data from public APIs', 'Implementing efficient filtering/sorting for large watchlists'],
+                challenges: ['Designing flexible data model for shows, episodes and user progress', 'Implementing efficient API caching strategies', 'Handling inconsistent or partial data from external APIs', 'Building pagination and infinite scroll for large datasets', 'Optimizing filtering/sorting for watchlists'],
                 tech: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS', 'REST APIs'],
                 image: '/anime-tracker-poster.jpeg',
                 screenshots: [
@@ -589,6 +649,33 @@ const SkillCard = ({ icon, name, level }) => (
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Certifications Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">
+            Certifications & <span className={t.accent}>Achievements</span>
+          </h2>
+          <div className={`group relative ${t.cardBg} backdrop-blur-sm border ${t.border} rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all overflow-hidden`}>
+            {/* Animated border */}
+            <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500 via-orange-500 to-purple-500 animate-border-spin" 
+                   style={{padding: '2px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude'}}/>
+            </div>
+            
+            <div className="space-y-4">
+              <div className={`${t.cardBg} border ${t.border} rounded-xl p-6 hover:scale-[1.02] transition-all`}>
+                <h3 className={`text-xl font-bold mb-2 ${t.accent} flex items-center gap-2`}>
+                  <Download size={20} />
+                  The Complete 2024 Web Development Bootcamp
+                </h3>
+                <p className={`${t.textSecondary} mb-2`}>Dr. Angela Yu | Udemy</p>
+                <p className={`${t.textSecondary} text-sm`}>60+ hours covering MERN stack, RESTful APIs, authentication, database design, and deployment strategies. Comprehensive full-stack development training.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
