@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Github, Linkedin, Mail, MapPin, Phone, ExternalLink, Send, Moon, Sun, Code2, Database, Server, Cpu, Globe, Terminal, Download, Eye, Twitter, Instagram, Facebook } from 'lucide-react';
 import {
   SiReact, SiAngular, SiJavascript, SiTypescript, SiTailwindcss,
-  SiNodedotjs, SiExpress, SiPython, SiMicrogenetics, SiFastapi,
+  SiNodedotjs, SiExpress, SiPython, SiFastapi,
   SiMongodb, SiMysql, SiPostgresql, SiRedis,
   SiDocker, SiGit, SiJenkins, SiPostman, SiKubernetes
 } from "react-icons/si";
@@ -484,7 +484,7 @@ const SkillCard = ({ icon, name, level }) => (
       <SkillCard icon={<SiExpress size={40} color="#888"/>} name="Express.js" level="Advanced"/>
       <SkillCard icon={<SiPython size={40} color="#FFD43B"/>} name="Python" level="Intermediate"/>
       <SkillCard icon={<SiFastapi size={40} color="#009688"/>} name="REST APIs" level="Advanced"/>
-      <SkillCard icon={<SiMicrogenetics size={40} color="#4F46E5"/>} name="Microservices" level="Intermediate"/>
+      <SkillCard icon={<Server size={40} color="#4F46E5"/>} name="Microservices" level="Intermediate"/>
 
     </div>
 
