@@ -241,7 +241,7 @@ const SkillCard = ({ icon, name, level }) => (
                       View Resume
                     </button>
                     <a
-                      href="/Shailesh-FSWD.pdf"
+                      href="/ShaileshJukaria.pdf"
                       download
                       onClick={() => setShowResumeDropdown(false)}
                       className={`w-full px-6 py-3 ${t.textSecondary} hover:bg-orange-500/10 transition-all flex items-center gap-2 hover:${t.accent.replace('text-', 'text-')}`}
@@ -884,14 +884,14 @@ const SkillCard = ({ icon, name, level }) => (
             </div>
             
             <iframe 
-              src="/Shailesh-FSWD.pdf" 
+              src="/ShaileshJukaria.pdf" 
               className="flex-1 rounded-lg border border-purple-500/20 w-full"
               title="Resume"
             />
             
             <div className="mt-6 flex gap-4">
               <a
-                href="/Shailesh-FSWD.pdf"
+                href="/ShaileshJukaria.pdf"
                 download
                 className={`flex-1 px-6 py-3 ${t.buttonBg} ${t.buttonHover} rounded-lg font-semibold transition-all hover:scale-105 text-center cursor-pointer`}
               >
